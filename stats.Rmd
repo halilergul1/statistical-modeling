@@ -6,6 +6,10 @@ n <- 100
 n <- 250
 p <- 0.5
 x <- 0:n
+# can chenge the sigma as well
+### CDF for Normal
+mu    <- 50
+sigma <- 5 # standard deviation
 y <-plot(x, dbinom(x, size = n, prob = p), main = "Probability mass function for Bin(100,0.5)")
 barplot(y,names.arg=x) #Probability mass function for Bin(100,0.5)
 plot(x, pbinom(x, size = n, prob = p), type="s", main = "Cumulative distribution function for Bin(100,0.5)")
@@ -46,4 +50,28 @@ CLT = (2/n)/(sqrt(Var_Ui)/sqrt(n)) # From the CLT formula
 print(CLT) # This value corresponds to 0.6915 and 0.3085 in Z score table
 result = 0.6915 - 0.3085 # The result of P(|Z| <= CLT)
 print(result)
+
+
+# Extensive proof for CLM
+# Load necessary library
+if (!require("ggplot2")) install.packages("ggplot2")
+library(ggplot2)
+
+# Parameters
+n_samples <- 10000  # Number of samples
+sample_size <- 30   # Size of each sample
+
+# Generate samples from a non-normal distribution (e.g., uniform distribution)
+set.seed(123)  # for reproducibility
+samples <- matrix(runif(n_samples * sample_size), nrow = n_samples)
+
+# Calculate the mean of each sample
+sample_means <- rowMeans(samples)
+
+# Plot the distribution of sample means
+ggplot(data.frame(means = sample_means), aes(x = means)) +
+  geom_histogram(aes(y = ..density..), binwidth = 0.01, colour = "black", fill = "white") +
+  geom_density(alpha = 0.2, fill = "#FF6666") +
+  labs(title = "Distribution of Sample Means", x = "Sample Mean", y = "Density")
+
 
