@@ -1,0 +1,47 @@
+#3a
+
+### CDF for binomial
+n <- 100
+p <- 0.5
+x <- 0:n
+y <-plot(x, dbinom(x, size = n, prob = p), main = "Probability mass function for Bin(100,0.5)")
+barplot(y,names.arg=x) #Probability mass function for Bin(100,0.5)
+plot(x, pbinom(x, size = n, prob = p), type="s", main = "Cumulative distribution function for Bin(100,0.5)")
+
+
+### CDF for Normal
+mu    <- 50
+sigma <- 5 # standard deviation
+
+curve(dnorm(x, mean = mu, sd = sigma), # notice the 3rd argument is the sd
+      from = 0, to = 100,
+      main = "PDF for a standard normal")
+
+curve(pnorm(x, mean = mu, sd = sigma),from = 0, to = 100, main = "CDF for a standard normal",ylab = "F(x)")
+
+
+#CDFs of binomial pdf and normal pdf on the same graph (If it gives warning or error, you can try it on R script and it will work definetly)
+plot(x, pbinom(x, size = n, prob = p), type="s", col = 'blue')
+curve(pnorm(x, mean = mu, sd = sigma),from = 0, to = 100, main = "CDF for a standard normal",ylab = "F(x)", add = TRUE, col = 'red')
+
+## So, functions are almost similar.
+## The reasons behind these similarity have to do with the effect of n (the number of trials)
+## and p (probablity of success). By small size of n and small p (like 0.1), the binomial
+## distribution would look like skewed to right. For large p and small n, the distribution would be skewed to left
+## In our case, we have a large p (0.5) and large n (100) therefore the pdf looks like symmetric.
+## For normal pdf, again we have a large n (100) and together with its parameters
+## its distribution is almost symmetric and bell shaped.  
+## Central Limit Theorem (CLT) suggests that the sampling distribution of the 
+## sample mean is normally distributed (as n increases or goes to infinity), 
+## regardless of the distribution of the underlying random sample (binomial or normal, CLT applies for both).
+# Hence,cdf of binomial and normal distributions seem similar as cdf of binomial converges to the standard normal cdf.
+
+#3b
+n = 192
+E_Ui = 0 #Expected value of Ui
+Var_Ui = 1/12 #Variance value of Ui
+CLT = (2/n)/(sqrt(Var_Ui)/sqrt(n)) # From the CLT formula
+print(CLT) # This value corresponds to 0.6915 and 0.3085 in Z score table
+result = 0.6915 - 0.3085 # The result of P(|Z| <= CLT)
+print(result)
+
