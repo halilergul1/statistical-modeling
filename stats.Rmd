@@ -2,6 +2,8 @@
 
 ### CDF for binomial
 n <- 100
+# n also can be more than 250
+n <- 250
 p <- 0.5
 x <- 0:n
 y <-plot(x, dbinom(x, size = n, prob = p), main = "Probability mass function for Bin(100,0.5)")
